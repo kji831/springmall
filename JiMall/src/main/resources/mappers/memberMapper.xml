@@ -9,15 +9,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 회원가입 --><!-- 파라미터타입에 경로를 빼고 MemberVO만 작성 가능 한 이유는 mybatis-config.xml에서 package작업을 해줬기 때문이다 -->
 	<insert id="join" parameterType="MemberVO">
-		insert into SHOPINGMEMBER_TBL(spmem_id, spmem_name, spmem_pw, spmem_postcode, spmem_add, spmem_deadd,
-		 							  spmem_phonnum, spmem_nick, spmem_emailre)
+		insert into SHOPINGMEMBER_TBL(spmem_id, spmem_name, spmem_pw, spmem_postcode, spmem_add, spmem_deAdd,
+		 							  spmem_phonNum, spmem_nick, spmem_email)
 		values(#{spmem_id}, #{spmem_name}, #{spmem_pw}, #{spmem_postcode}, #{spmem_add}, 
-		       #{spmem_deadd}, #{spmem_phonnum}, #{spmem_nick}, #{spmem_emailre}) 		
+		       #{spmem_deAdd}, #{spmem_phonNum}, #{spmem_nick}, #{spmem_email}) 		
 		       
 	</insert>
 	
 	<!-- 아이디 중복체크 -->
-	<select id="checkId" parameterType="string" resultType="MemberVO">
+	<select id="checkId" parameterType="String" resultType="MemberVO">
 		select spmem_id
 		from SHOPINGMEMBER_TBL
 		where spmem_id = #{spmem_id}

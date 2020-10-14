@@ -127,14 +127,14 @@ public class MemberController {
 		MemberDTO memDTO = service.login(dto);
 		
 		if(memDTO != null) { // 로그인 성공
-			logger.info("=====로그인 성공=====");
+			//logger.info("=====로그인 성공=====");
 			
 			session.setAttribute("user", memDTO);
 			
 			// rttr.addFlashAttribute("msg", "LOGIN_SUCCESS");
 			return "redirect:/";
 		}else {
-			logger.info("=====로그인 실패=====");
+			//logger.info("=====로그인 실패=====");
 			
 			// rttr.addFlashAttribute("msg", "LOGIN_FAIL");
 			
@@ -185,6 +185,8 @@ public class MemberController {
 		}
 		
 		model.addAttribute("url", url);
+		model.addAttribute("msg", "CHECK_PW_FAIL");
+		
 		return "/member/checkPw";
 	}
 	
