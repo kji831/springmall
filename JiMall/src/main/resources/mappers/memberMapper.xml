@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jimall.mappers.MemberMapper">
+
+
+
+	<!-- 회원가입 --><!-- 파라미터타입에 경로를 빼고 MemberVO만 작성 가능 한 이유는 mybatis-config.xml에서 package작업을 해줬기 때문이다 -->
+	<insert id="join" parameterType="MemberVO">
+		insert into SHOPINGMEMBER_TBL(spmem_id, spmem_name, spmem_pw, spmem_postcode, spmem_add, spmem_deadd,
+		 							  spmem_phonnum, spmem_nick, spmem_emailre)
+		values(#{spmem_id}, #{spmem_name}, #{spmem_pw}, #{spmem_postcode}, #{spmem_add}, 
+		       #{spmem_deadd}, #{spmem_phonnum}, #{spmem_nick}, #{spmem_emailre}) 		
+		       
+	</insert>
+	
+	<!-- 아이디 중복체크 -->
+	<select id="checkId" parameterType="string" resultType="MemberVO">
+		select spmem_id
+		from SHOPINGMEMBER_TBL
+		where spmem_id = #{spmem_id}
+	</select>
+
+	<!-- 로그인 -->
+	<select id="login" parameterType="MemberDTO" resultType="MemberDTO">
+		select spmem_id, spmem_pw, spmem_name, spmem_nick, spmem_point, spmem_lastLogin
+		from SHOPINGMEMBER_TBL
+		where spmem_id=#{spmem_id}
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="modifyMemInfo">
+		update SHOPINGMEMBER_TBL
+		set  spmem_postcode=#{spmem_postcode}, spmem_add=#{spmem_add}, spmem_deadd=#{spmem_deadd},
+			 spmem_phonnum=#{spmem_phonnum}, spmem_nick=#{spmem_nick}, spmem_emailre=#{spmem_emailre},
+			 spmem_updateDate=sysdate
+		where spmem_id#{spmem_id}	 
+	</update>
+	
+	<update id="changePw">
+		update SHOPINGMEMBER_TBL
+		set spmem_pw = #{spmem_pw}
+		where spmem_id=#{spmem_id}
+	</update>
+	
+	<delete id="deleteMem">
+		delete from SHOPINGMEMBER_TBL
+		where spmem_id=#{spmem_id}
+	</delete>
+</mapper>
+
+	
