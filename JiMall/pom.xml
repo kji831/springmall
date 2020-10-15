@@ -203,6 +203,7 @@
 		
 		
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<!-- JSON 데이터 작업 시 필요 한 라이브러리 -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>

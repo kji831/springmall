@@ -32,6 +32,7 @@ public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	// MemberService를 참조하기 위한 구문
+	@Autowired  // 이노테이션 제발 까먹지 말기
 	private MemberService service;
 	
 	// 비밀번호 암호화를 위한 구문 : spring-security에서 빈객체로 생성
@@ -164,16 +165,17 @@ public class MemberController {
 	}
 	
 	// 비밀번호 재확인 보내기
-	@RequestMapping(value = "chekPw", method = RequestMethod.POST)
+	@RequestMapping(value = "checkPw", method = RequestMethod.POST)
 	public String checkPwPOST(@RequestParam("url") String url, @RequestParam("spmem_pw") String pw,
 							   HttpSession session, Model model) throws Exception {
 		
 		// getAttribue("user") -> 로그인 한 정보??
 		MemberDTO dto = (MemberDTO) session.getAttribute("user");
 		
-		if(passSecu.matches(pw, dto.getSpmem_pw())) {
+		//if(passSecu.matches(pw, dto.getSpmem_pw())) {
 			
 			if(url.equals("modify")) {
+				model.addAttribute("vo", service.readMemInfo(dto.getSpmem_id()));
 				return "/member/modify";
 				
 			}else if(url.equals("changePw")) {
@@ -182,12 +184,12 @@ public class MemberController {
 			}else if(url.equals("delete")) {
 				return "/member/delete";
 			}
-		}
+		//}
 		
 		model.addAttribute("url", url);
 		model.addAttribute("msg", "CHECK_PW_FAIL");
 		
-		return "/member/checkPw";
+		return "/member/choice";
 	}
 	
 	// 비밀번호 ajax

@@ -5,6 +5,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.jimall.mappers.MemberMapper">
 
+	<!-- MemberVO 가져오기 -->
+	<select id="readMemInfo" parameterType="string" resultType="MemberVO">
+		select spmem_id, spmem_name, spmem_pw, spmem_postcode, spmem_add, spmem_deAdd, spmem_phonNum, spmem_nick, spmem_email
+			   spmem_point, spmem_joindate, spmem_updatedate, spmem_lastlogin
+		from shopingmember_tbl
+		where spmem_id = #{spmem_id}	   
+	</select>
 
 
 	<!-- 회원가입 --><!-- 파라미터타입에 경로를 빼고 MemberVO만 작성 가능 한 이유는 mybatis-config.xml에서 package작업을 해줬기 때문이다 -->

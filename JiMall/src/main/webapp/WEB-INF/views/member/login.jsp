@@ -53,7 +53,7 @@
           
            <div class="col">
            <h2>로그인</h2>
-           <form id="loginForm" action="/member/loginPost" method="post">
+           <form id="loginForm" action="/member/login" method="post">
            		<table class="table table-boardered">
            			<tr>
            				<th>아이디</th>

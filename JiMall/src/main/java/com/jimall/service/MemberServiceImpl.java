@@ -40,14 +40,14 @@ public class MemberServiceImpl implements MemberService {
 		
 		// 회원가입 시 비밀번호 암호화 저장
 		
-		if(memDTO != null) {
-			// 입력 비밀번호가 암호화 된 비밀번호와 일치하는지 확인   passSecu.matches(일반비밀번호, 암호화비밀번호)
-			if(passSecu.matches(dto.getSpmem_pw(), memDTO.getSpmem_pw())) { // true면 로그인 정보 존재
-				// 원래 이자리에 로그인 시간저장이 있었는데 굳이 필요한 거 같지 않아서 뺌(쿠키 작업 안 하니까)
-			}else {
-				memDTO = null;
-			}
-		}
+//		if(memDTO != null) {
+//			// 입력 비밀번호가 암호화 된 비밀번호와 일치하는지 확인   passSecu.matches(일반비밀번호, 암호화비밀번호)
+//			if(passSecu.matches(dto.getSpmem_pw(), memDTO.getSpmem_pw())) { // true면 로그인 정보 존재
+//				// 원래 이자리에 로그인 시간저장이 있었는데 굳이 필요한 거 같지 않아서 뺌(쿠키 작업 안 하니까)
+//			}else {
+//				memDTO = null;
+//			}
+//		}
 		return memDTO;
 	}
 
@@ -70,6 +70,12 @@ public class MemberServiceImpl implements MemberService {
 	public void deleteMem(String spmem_id) throws Exception {
 		dao.deleteMem(spmem_id);
 		
+	}
+
+	// MemberVO
+	@Override
+	public MemberVO readMemInfo(String spmem_id) throws Exception {
+		return dao.readMemInfo(spmem_id);
 	}
 	
 	

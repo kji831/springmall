@@ -12,7 +12,7 @@ public class MemberDTO {
 	private String spmem_pw;
 	private String spmem_nick;
 	private String spmem_name;
-	private int spmem_point;
+	//private int spmem_point;
 	// private Date spmem_lastLogin;
 	
 	public String getSpmem_id() {
@@ -39,12 +39,12 @@ public class MemberDTO {
 	public void setSpmem_name(String spmem_name) {
 		this.spmem_name = spmem_name;
 	}
-	public int getSpmem_point() {
-		return spmem_point;
-	}
-	public void setSpmem_point(int spmem_point) {
-		this.spmem_point = spmem_point;
-	}
+//	public int getSpmem_point() {
+//		return spmem_point;
+//	}
+//	public void setSpmem_point(int spmem_point) {
+//		this.spmem_point = spmem_point;
+//	}
 	/*
 	public Date getSpmem_lastLogin() {
 		return spmem_lastLogin;
@@ -57,7 +57,7 @@ public class MemberDTO {
 	@Override
 	public String toString() {
 		return "MemberDTO [spmem_id=" + spmem_id + ", spmem_pw=" + spmem_pw + ", spmem_nick=" + spmem_nick
-				+ ", spmem_name=" + spmem_name + ", spmem_point=" + spmem_point + "]";
+				+ ", spmem_name=" + spmem_name + ", spmem_point="  + "]";
 	}
 	
 	

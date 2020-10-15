@@ -18,7 +18,6 @@
   <!-- Bootstrap core JavaScript -->
   <%@ include file="/WEB-INF/views/common/bootjs.jsp" %>
   
-  <script src="/js/delete.js"></script>
   
   <!-- Custom styles for this template -->
 <%@ include file="/WEB-INF/views/common/bootcss.jsp" %>
@@ -52,19 +51,15 @@
         <div class="row">
 		
 		
-    <h2>비밀번호 확인</h2>
+    <h2></h2>
     <form id="checkPwForm" action="checkPw"  method="post">
         <table class="table table-boardered">
             <tr>
-            	<td>
-					<input type="hidden" name="url" value="${url}" />
-					<input type="password" class="form-control" id="spmem_pw" name="spmem_pw" placeholder="비밀번호를 입력해주세요.">            
-            	</td>
-            </tr>
-            <tr>
-            	<td>
-            		<!-- <input type="submi" id="btn_join" class="btn btn-primary" value="확인"> -->
-            		<button id="btn_join" class="btn btn-primary">전송</button>
+            	<td class="text-center">
+            		<button id="btn_join" class="btn btn-primary" href="/member/modify">회원 수정</button>
+            		<button id="btn_join" class="btn btn-primary">비밀번호 변경</button>
+            		<button id="btn_join" class="btn btn-primary">회원 탈퇴</button><br>
+            		<button id="btn_join" class="btn btn-primary">메인으로</button>
             	</td>
             </tr>
         </table>

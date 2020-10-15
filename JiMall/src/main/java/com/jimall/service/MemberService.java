@@ -22,4 +22,7 @@ public interface MemberService {
 	
 	// 회원 탈퇴
 	public void deleteMem(String spmem_id) throws Exception;
+	
+	// MemberVO
+	public MemberVO readMemInfo(String spmem_id) throws Exception;
 }

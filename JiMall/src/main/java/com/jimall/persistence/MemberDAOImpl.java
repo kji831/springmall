@@ -60,4 +60,10 @@ public class MemberDAOImpl implements MemberDAO {
 		session.delete(NS+".deleteMem", spmem_id);
 	}
 
+	// MemberVO
+	@Override
+	public MemberVO readMemInfo(String spmem_id) throws Exception {
+		return session.selectOne(NS+".readMemInfo", spmem_id);
+	}
+
 }
