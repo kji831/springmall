@@ -160,16 +160,16 @@ public class MemberController {
 	@RequestMapping(value = "checkPw", method = RequestMethod.GET)
 	public void checkPw(@ModelAttribute("url") String url) {
 		
-		// 회원수정을 눌렀을 때 나오는 페이지 
+		// 회원수정을 눌렀을 때 나오는 페이지   
 		
 	}
 	
 	// 비밀번호 재확인 보내기
 	@RequestMapping(value = "checkPw", method = RequestMethod.POST)
-	public String checkPwPOST(@RequestParam("url") String url, @RequestParam("spmem_pw") String pw,
+	public String checkPwPOST( @RequestParam("url") String url, @RequestParam("spmem_pw") String pw,
 							   HttpSession session, Model model) throws Exception {
 		
-		// getAttribue("user") -> 로그인 한 정보??
+		// getAttribue("user") -> 로그인 한 정보?? 
 		MemberDTO dto = (MemberDTO) session.getAttribute("user");
 		
 		//if(passSecu.matches(pw, dto.getSpmem_pw())) {

@@ -18,7 +18,7 @@
 	<!-- 클라이언트에서 사용가능하기 위한 경로설정 -->
 	<resources mapping="/bower_componets/**" location="/resources/bower_componets/" />
 	<resources mapping="/dist/**" location="/resources/dist/" />
-	<resources mapping="/plugins/**" location="/resources/pluginss/" />
+	<resources mapping="/plugins/**" location="/resources/plugins/" />
 	
 	<resources mapping="/css/**" location="/WEB-INF/views/css/" />
 	<resources mapping="/vendor/**" location="/WEB-INF/views/vendor/" />

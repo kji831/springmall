@@ -20,7 +20,7 @@ public class EmailController {
 	
 	private EmailService emailService;
 
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	private static final Logger logger = LoggerFactory.getLogger(EmailController.class);
 	
 	public ResponseEntity<String> send(@ModelAttribute EmailDTO dto, Model model, HttpSession session){
 		

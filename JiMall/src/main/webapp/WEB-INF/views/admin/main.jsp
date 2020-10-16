@@ -17,7 +17,6 @@
   <!-- Bootstrap core JavaScript -->
   <%@ include file="/WEB-INF/views/common/bootjs.jsp" %>
   
-  <script src="/js/member/login.js"></script>
 	
   <!-- Custom styles for this template -->
   <%@ include file="/WEB-INF/views/common/bootcss.jsp" %> 	
@@ -27,7 +26,7 @@
 <body>
 
   <!-- Navigation -->
-  <%@ include file="/WEB-INF/views/common/top.jsp" %>
+  <%@ include file="/WEB-INF/views/common/adminTop.jsp" %>
 
   <!-- Page Content -->
   <div class="container">
@@ -52,31 +51,18 @@
 		<!-- 로그인 -->
           
            <div class="col">
-           <h2>로그인</h2>
-           <form >
-           		<table class="table table-boardered" method="post">
-           			<tr>
-           				<td>
-							<button type="button" method="post" onclick="location.href='/member/modify'" class="btn btn-primary"> 회원수정 </button>
-							<button type="button"  onclick="location.href='/member/logout'" class="btn btn-primary"> 로그아웃 </button>
-							<button type="button"  onclick="location.href='/member/changePw'" class="btn btn-primary"> 비밀번호 변경 </button>
-           				</td>
-           			</tr>
-           			<tr>
-           				<th>비밀번호</th>
-           				<td>
-           					<input type="password" id="spmem_pw" class="form-control" name="spmem_pw" placeholder="비밀번호를 입력하세요">
-           					<p id="pw_blank" style="color: red;"></p>
-           				</td>
-           			</tr>
+           <h2></h2>
+           <form>
+           		<table class="table table-boardered">
            			<tr>
            				<td colspan="2" class="text-center">
-	           				<button type="button"  id="btn_login" class="btn btn-primary">로그인</button>
-	           				<button type="reset" id="btn_cancle" class="btn btn-primary">취소</button>
+           					<button type="button"  onclick="location.href='/admin/insert'" class="btn btn-primary"> 상품등록 </button>
+	           				<button type="button"  onclick="location.href='/admin/logout'" class="btn btn-primary"> 로그아웃 </button>
 	           			</td>	
            			</tr>
            		</table>
            </form>
+           
     		<!-- 
     		<div class="login-form">
 			    <form action="/examples/actions/confirmation.php" method="post">

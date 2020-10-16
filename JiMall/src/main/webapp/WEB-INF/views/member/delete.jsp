@@ -17,7 +17,7 @@
   <!-- Bootstrap core JavaScript -->
   <%@ include file="/WEB-INF/views/common/bootjs.jsp" %>
   
-  <script src="/js/delete.js"></script>
+  <script src="/js/member/delete.js"></script>
   
   <!-- Custom styles for this template -->
 <%@ include file="/WEB-INF/views/common/bootcss.jsp" %>
@@ -57,10 +57,11 @@
             <tr>
             	<td>
 					<input type="hidden" name="spmem_id" value="${url}" />
+					<p>회원을 탈퇴하시겠습니까??</p>
             	</td>
             </tr>
             <tr>
-            	<td>
+            	<td colspan="2" class="text-center">
             		<input type="button" id="btn_submit" class="btn btn-primary" value="확인">
             		<input type="button" id="btn_cancle" class="btn btn-primary" value="취소" onclick="location.href='/';">
             	</td>

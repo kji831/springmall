@@ -17,7 +17,7 @@
   <!-- Bootstrap core JavaScript -->
   <%@ include file="/WEB-INF/views/common/bootjs.jsp" %>
   
-  <script src="/js/login.js"></script>
+  <script src="/js/member/login.js"></script>
 	
   <!-- Custom styles for this template -->
   <%@ include file="/WEB-INF/views/common/bootcss.jsp" %> 	

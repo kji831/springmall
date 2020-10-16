@@ -17,7 +17,7 @@
   <!-- Bootstrap core JavaScript -->
   <%@ include file="/WEB-INF/views/common/bootjs.jsp" %>
   
-  <script src="/js/member/login.js"></script>
+  <script src="/js/admin/login.js"></script>
 	
   <!-- Custom styles for this template -->
   <%@ include file="/WEB-INF/views/common/bootcss.jsp" %> 	
@@ -27,7 +27,7 @@
 <body>
 
   <!-- Navigation -->
-  <%@ include file="/WEB-INF/views/common/top.jsp" %>
+  <%@ include file="/WEB-INF/views/common/adminTop.jsp" %>
 
   <!-- Page Content -->
   <div class="container">
@@ -53,20 +53,18 @@
           
            <div class="col">
            <h2>로그인</h2>
-           <form >
-           		<table class="table table-boardered" method="post">
+           <form id="loginForm" action="/admin/login" method="post">
+           		<table class="table table-boardered">
            			<tr>
+           				<th>아이디</th>
            				<td>
-							<button type="button" method="post" onclick="location.href='/member/modify'" class="btn btn-primary"> 회원수정 </button>
-							<button type="button"  onclick="location.href='/member/logout'" class="btn btn-primary"> 로그아웃 </button>
-							<button type="button"  onclick="location.href='/member/changePw'" class="btn btn-primary"> 비밀번호 변경 </button>
+           					<input type="text" id="admin_id" class="form-control" name="admin_id" >
            				</td>
            			</tr>
            			<tr>
            				<th>비밀번호</th>
            				<td>
-           					<input type="password" id="spmem_pw" class="form-control" name="spmem_pw" placeholder="비밀번호를 입력하세요">
-           					<p id="pw_blank" style="color: red;"></p>
+           					<input type="password" id="admin_pw" class="form-control" name="admin_pw">
            				</td>
            			</tr>
            			<tr>
