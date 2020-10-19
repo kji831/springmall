@@ -25,10 +25,20 @@
 	
 	<resources mapping="/js/**" location="/WEB-INF/views/js/" />
 
+	<resources mapping="/ckeditor/**" location="/resources/bower_components/ckeditor/" />
+	<resources mapping="/upload/**" location="/resources/upload/" />
+	
+
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 파일 업로드 path -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="D:\\dev\\ubload"></beans:constructor-arg>
 	</beans:bean>
 	
 	<context:component-scan base-package="com.jimall.controller" />

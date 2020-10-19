@@ -14,7 +14,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">상품등록</a>
+            <a class="nav-link" href="/admin/product/insert">상품등록</a>
             <a class="nav-link" href="#">회원수정</a>
           </li>
           <li class="nav-item">

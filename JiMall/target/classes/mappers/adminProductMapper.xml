@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jimall.mappers.AdminProductMapper">
+	
+	<!-- 1차 카테고리 출력 -->
+	<select id="mainCateList" resultType="CategoryVO">
+		select cate_thcode, cate_pracode, cate_name 
+		from category_tbl
+		where cate_pracode is null
+	</select>
+
+	<!-- 1차 카테고리에 따른 2차카테고리 출력 -->
+	<select id="subCateList" parameterType="String" resultType="CategoryVO">
+		select cate_thcode, cate_pracode, cate_name
+		from category_tbl
+		where cate_pracode = #{cate_thcode}	
+	</select>
+	
+	<!-- 상품등록 -->
+	<insert id="productInsert" parameterType="ProductVO">
+		insert into productinfo_tbl(prod_num, cate_thcode, cate_pracode, prod_name, prod_price, prod_discount, prod_develop, prod_detailint, 
+									prod_img, prod_cominven, prod_buypos, prod_regisdate)
+		values(seq_pdt_num.NEXTVAL, #{cate_thcode}, #{cate_pracode}, #{prod_name}, #{prod_price}, #{prod_discount}, #{prod_develop}, #{prod_detailint},
+		 							#{prod_img}, #{prod_cominven}, #{prod_buypos}, sysdate)	
+	</insert>
+</mapper>
