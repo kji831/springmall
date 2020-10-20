@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.jimall.domain.CategoryVO;
 import com.jimall.domain.ProductVO;
+import com.jimall.util.SearchCriteria;
 
 public interface AdminProductDAO {
 
@@ -15,4 +16,10 @@ public interface AdminProductDAO {
 	
 	// 상품 등록
 	public void insertProduct(ProductVO vo) throws Exception;
+	
+	// 상품 리스트
+	public List<ProductVO> searchList(SearchCriteria cri) throws Exception;
+	
+	// 검색 조건에 해당하는 상품 개수
+	public int searchListCount(SearchCriteria cri) throws Exception;
 }

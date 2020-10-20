@@ -1,6 +1,6 @@
 package com.jimall.util;
 
-public class SearchCriteria {
+public class SearchCriteria extends Criteria{
 	
 	private String searchType;
 	private String keyword;

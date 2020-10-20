@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,8 @@ import com.jimall.domain.CategoryVO;
 import com.jimall.domain.ProductVO;
 import com.jimall.service.AdminProductService;
 import com.jimall.util.FileUtils;
+import com.jimall.util.PageMaker;
+import com.jimall.util.SearchCriteria;
 
 @Controller
 @RequestMapping("/admin/product/*")
@@ -56,6 +59,7 @@ public class AdminProductController {
 		return FileUtils.getFile(uploadPath, fileName);
 	}
 	
+	// 이미지 파일 삭제
 	public void deleteFile(String fileName) {
 		
 		FileUtils.deleteFile(uploadPath, fileName);
@@ -79,5 +83,22 @@ public class AdminProductController {
 		service.insertProduct(vo);
 		
 		return "redirect:/admin/product/list";
+	}
+	
+	// 상품리스트
+	@RequestMapping(value = "list", method = RequestMethod.GET)
+	public void productList(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+		
+		model.addAttribute("productList", service.searchList(cri));
+		
+		PageMaker pm = new PageMaker();
+		pm.setCri(cri); // 페이징 정보  검색정보
+		
+		int count = service.searchListCount(cri);
+		
+		pm.setTotalCount(count);
+		
+		model.addAttribute("pm", pm);
+		
 	}
 }

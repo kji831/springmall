@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.jimall.domain.CategoryVO;
 import com.jimall.domain.ProductVO;
 import com.jimall.persistence.AdminProductDAO;
+import com.jimall.util.SearchCriteria;
 
 @Service
 public class AdminProductServiceImpl implements AdminProductService {
@@ -33,6 +34,16 @@ public class AdminProductServiceImpl implements AdminProductService {
 
 		dao.insertProduct(vo);
 		
+	}
+
+	@Override
+	public List<ProductVO> searchList(SearchCriteria cri) throws Exception {
+		return dao.searchList(cri);
+	}
+
+	@Override
+	public int searchListCount(SearchCriteria cri) throws Exception {
+		return dao.searchListCount(cri);
 	}
 
 	

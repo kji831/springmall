@@ -33,6 +33,7 @@ public class FileUtils {
 	  @return 
 	  String uploadedFileName : 날짜 경로 + 파일이름 
 	  
+	  썸네일로 넘어 오는지 확인하고 안 돼있으면 _s붙여서 썸네일 이미지로 리턴 되게 작업해주기
 	 */
 	
 	public static String uploadFile(String uploadPath, String originName, byte[] fileData) throws Exception {

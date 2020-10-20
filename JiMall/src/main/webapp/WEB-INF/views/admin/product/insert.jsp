@@ -48,7 +48,7 @@
 			// CKEDITOR.replace("desc", "");
 			
 			// 1차 카테고리에 따른 2차 카테고리 작업
-			$("#mainCatego0ry").on("change", function(){
+			$("#mainCategory").on("change", function(){
 				var mainCateCode = $(this).val(); // 선택 한 1차 카테고리
 				var url = "/admin/product/subCateList" + mainCateCode // url매핑주소를 경로형태로 사용 @PathVarialbe
 				
@@ -75,7 +75,7 @@
 	  }
   </script>
 
-  <script src="/js/admin/insert.js"></script>
+  <%--<script src="/js/admin/insert.js"></script>--%>
 	
   <!-- Custom styles for this template -->
   <%@ include file="/WEB-INF/views/common/bootcss.jsp" %> 	
@@ -111,7 +111,7 @@
           
            <div class="col">
            <h2>상품 등록</h2>
-           <form id='registerForm' role="form" action="/admin/insert" method="post" enctype="multipart/form-data">
+           <form id='registerForm' role="form" action="/admin/product/insert" method="post" enctype="multipart/form-data">
 								<div class="box-body">
 									<div class="form-group">
 										<label for="exampleInputEmail1" style="width:30%; margin-right:20px;" >1차 카테고리</label>
@@ -180,7 +180,7 @@
 									<ul class="mailbox-attachments clearfix uploadedList">
 									</ul>
 
-									<button id="btn_submit" type="button" class="btn btn-primary">상품 등록</button>
+									<button id="btn_submit" type="submit" class="btn btn-primary">상품 등록</button>
 
 								</div>
 							</form>

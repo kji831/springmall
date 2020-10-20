@@ -26,4 +26,64 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(seq_pdt_num.NEXTVAL, #{cate_thcode}, #{cate_pracode}, #{prod_name}, #{prod_price}, #{prod_discount}, #{prod_develop}, #{prod_detailint},
 		 							#{prod_img}, #{prod_cominven}, #{prod_buypos}, sysdate)	
 	</insert>
+	
+	<!-- 검색 조건 : 공통 사용 구문 -->
+	<sql id="search">
+		<if test="searchType != null">
+			<!-- 상품명 -->
+			<if test="searchType == 'name'.toString()">
+				where prod_name like '%' || #{keyword} || '%'
+			</if>
+			<!-- 내용 -->
+			<if test="searchType == 'detailint'.toString()">
+				where prod_detailint like '%' || #{keyword} || '%'
+			</if>
+			<!-- 제조사 -->
+			<if test="searchType == 'develop'.toString()">
+				where prod_develop like '%' || #{keyword} || '%'
+			</if>
+			<!-- 상품명 + 내용 -->
+			<if test="searchType == 'name_detailint'.toString()">
+				where (prod_name like '%' || #{keyword} || '%') or
+				      (prod_detailint like '%' || #{keyword} || '%')
+			</if>
+			<!-- 상품명 + 제조사 -->
+			<if test="searchType == 'name_develop'.toString()">
+				where (prod_name like '%' || #{keyword} || '%') or
+					  (prod_develop like '%' || #{keyword} || '%')
+			</if>
+			<!-- 상품명 + 내용 + 제조사 -->
+			<if test="searchType == 'all'.toString()">
+				where (prod_name like '%' || #{keyword} || '%') or
+				 	  (prod_detailint like '%' || #{keyword} || '%') or
+				 	  (prod_develop like '%' || #{keyword} || '%')
+			</if>
+		</if>
+	</sql>
+	
+	<!-- 상품 리스트 -->
+	<!-- 인라인 뷰가 사용 됨
+	     from 절에 있는 row_number은 순번을 정해주는 구문
+	     q_seq는 그 순번을 정해준 row_number의 이름
+	         인라인 뷰로 괄호 안에 from절이 먼저 실행 후에 
+	         조건 식이 실행이 됨 
+	         그냥 from product_tbl과 p_seq가 동일 선상에서 사용할 수 없기 때문에 
+	         사용하는 구문임  -->
+	<select id="searchList"  resultType="ProductVO">
+		select prod_num, cate_thcode, prod_name, prod_price, prod_discount, prod_develop, prod_detailint,
+		       prod_img, prod_cominven, prod_buypos, prod_registDate, prod_updateDate
+		from (select prod_num, cate_thcode, prod_name, prod_price, prod_discount, prod_develop, prod_detailint
+		      pdt_img, prod_cominven, prod_buypos, prod_registDate, prod_updateDate,
+		      row_number() over (order by prod_num desc) p_seq from product_tbl
+		      <include refid="search" /> )
+		where p_seq from product_tbl            
+	</select>
+	
+	<select id="searchListCount" resultType="int">
+		<![CDATA[
+			select count(prod_num)
+			form product_tbl
+			]]>
+			<include refid="search" />
+	</select>
 </mapper>
