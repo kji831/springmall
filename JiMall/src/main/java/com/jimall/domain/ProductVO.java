@@ -24,6 +24,7 @@ public class ProductVO {
 	
 	private int prod_num;
 	private String cate_thcode;
+	private String cate_pracode;
 	private String prod_name;
 	private int prod_price;
 	private int prod_discount;
@@ -52,6 +53,12 @@ public class ProductVO {
 	}
 	public void setCate_thcode(String cate_thcode) {
 		this.cate_thcode = cate_thcode;
+	}
+	public String getCate_pracode() {
+		return cate_pracode;
+	}
+	public void setCate_pracode(String cate_pracode) {
+		this.cate_pracode = cate_pracode;
 	}
 	public String getProd_name() {
 		return prod_name;
@@ -123,7 +130,7 @@ public class ProductVO {
 	
 	@Override
 	public String toString() {
-		return "ProductVO [prod_num=" + prod_num + ", cate_thcode=" + cate_thcode + ", prod_name=" + prod_name
+		return "ProductVO [prod_num=" + prod_num + ", cate_thcode=" + cate_thcode + ", cate_pracode=" + cate_pracode + ", prod_name=" + prod_name
 				+ ", prod_price=" + prod_price + ", prod_discount=" + prod_discount + ", prod_develop=" + prod_develop
 				+ ", prod_detailint=" + prod_detailint + ", prod_img=" + prod_img + ", prod_cominven=" + prod_cominven
 				+ ", prod_buypos=" + prod_buypos + ", prod_regisdate=" + prod_regisdate + ", prod_updateDate="

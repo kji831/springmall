@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +23,7 @@
 
   <%-- 핸들바 --%>
   <script id="subCateListTemplate" type="text/x-handlebars-template">
-		<option value="default">2차 카테고리 선택</option>
+		<option value="default">2차 카테고리</option>
 		{{#each .}}
 		<option value="{{cate_thcode}}">{{cate_name}}</option>
 		{{/each}}
@@ -49,8 +50,8 @@
 			
 			// 1차 카테고리에 따른 2차 카테고리 작업
 			$("#mainCategory").on("change", function(){
-				var mainCateCode = $(this).val(); // 선택 한 1차 카테고리
-				var url = "/admin/product/subCateList" + mainCateCode // url매핑주소를 경로형태로 사용 @PathVarialbe
+				var mainCateList = $(this).val(); // 선택 한 1차 카테고리
+				var url = "/admin/product/subCateList/" + mainCateList; // url매핑주소를 경로형태로 사용 @PathVarialbe
 				
 				// Rest 방식으로 전송
 				$.getJSON(url, function(data){
@@ -117,7 +118,8 @@
 										<label for="exampleInputEmail1" style="width:30%; margin-right:20px;" >1차 카테고리</label>
 										<label for="exampleInputEmail1" style="width:30%;" >2차 카테고리</label> <br />
 										<select class="form-control" id="mainCategory" name="cate_pracode" style="width:30%; margin-right:10px; display: inline-block;" >
-										  <option value="default">1차 카테고리 선택</option>
+										  <option value="default">1차 카테고리</option>
+										  <option>캬하하하하</option>
 										  <c:forEach items="${cateList}" var="vo">
 										  	<option value="${vo.cate_thcode}">${vo.cate_name}</option>
 										  </c:forEach>

@@ -27,7 +27,7 @@ public class AdminProductDAOImpl implements AdminProductDAO {
 	// 1차 카테고리에 따른 2차 카테고리
 	@Override
 	public List<CategoryVO> subCateList(String cate_thcode) throws Exception {
-		return session.selectList(NS +".subCateList", cate_thcode);
+		return session.selectList(NS+ ".subCateList", cate_thcode);
 	}
 	
 	// 상품 등록
@@ -36,12 +36,14 @@ public class AdminProductDAOImpl implements AdminProductDAO {
 		session.insert(NS +".insertProduct", vo);
 	}
 
+	// 상품 리스트
 	@Override
 	public List<ProductVO> searchList(SearchCriteria cri) throws Exception {
 
 		return session.selectList(NS+".searchList", cri);
 	}
 
+	// 검색 개수
 	@Override
 	public int searchListCount(SearchCriteria cri) throws Exception {
 		return session.selectOne(NS + ".searchListCount", cri);

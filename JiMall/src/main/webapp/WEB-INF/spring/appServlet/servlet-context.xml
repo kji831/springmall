@@ -36,9 +36,16 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 클라이언트로 부터 전송되어 온 파일을 스프링에서 처리하는 기능 -->
+	<!-- MultipartFile file 주입됨 -->
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760" />
+	</beans:bean>
+	
 	<!-- 파일 업로드 path -->
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="D:\\dev\\ubload"></beans:constructor-arg>
+		<beans:constructor-arg value="D:\\dev\\upload"></beans:constructor-arg>
 	</beans:bean>
 	
 	<context:component-scan base-package="com.jimall.controller" />

@@ -54,7 +54,7 @@
            <div class="col">
            <h2>로그인</h2>
            <form >
-           		<table class="table table-boardered" method="post">
+           		<table class="table table-boardered" >
            			<tr>
            				<td>
 							<button onclick="location.href='/member/modify'" class="btn btn-primary"> 회원수정 </button>

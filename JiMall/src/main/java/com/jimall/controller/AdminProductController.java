@@ -1,8 +1,14 @@
 package com.jimall.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jimall.domain.CategoryVO;
 import com.jimall.domain.ProductVO;
@@ -101,4 +108,53 @@ public class AdminProductController {
 		model.addAttribute("pm", pm);
 		
 	}
+	
+	// 파일 업로드 관련
+	@RequestMapping(value = "imgUpload", method = RequestMethod.POST)
+	public void imgUpload(HttpServletRequest req, HttpServletResponse res, MultipartFile upload) {
+		
+		OutputStream out = null;
+		PrintWriter printWriter = null;
+		
+		// 클라이언트에 보내기 위한 설정
+		res.setCharacterEncoding("utf-8");
+		res.setContentType("text/html;charset=utf-8");
+		
+		try {
+			
+			String fileName = upload.getOriginalFilename();
+			byte[] bytes = upload.getBytes();
+			
+			// 폴더 경로 설정
+			String uploadPath = req.getSession().getServletContext().getRealPath("/");
+			uploadPath = uploadPath + "resources\\upload\\" + fileName;
+			
+			// 출력 스트림 생성
+			out = new FileOutputStream(new File(uploadPath));
+			
+			// 파일 쓰기
+			out.write(bytes);
+			
+			// 클라이언트로 보내기 위한 정보설정 2
+			printWriter = res.getWriter();
+			String fileUrl = "/upload/" + fileName;
+			
+			// ckeditor에서 제공하는 형식
+			printWriter.println("{\"filename\":\"" + fileName + "\", \"uploaded\":1,\"url\":\"" + fileUrl + "\"}");
+			printWriter.flush(); // 전송 return과 같은 역할 : 클라이언트로 보냄
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			if(out != null) {
+				try {out.close(); }catch(Exception e) {e.printStackTrace();}
+			}
+			if(printWriter != null) {
+				try {printWriter.close();}catch(Exception e) {e.printStackTrace();}
+			}
+		}
+		
+	}
+	
+	
 }
