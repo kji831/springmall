@@ -46,6 +46,12 @@ public class AdminProductServiceImpl implements AdminProductService {
 		return dao.searchListCount(cri);
 	}
 
+	// 상품 정보
+	@Override
+	public ProductVO readProduct(int prod_num) throws Exception {
+		return dao.readProduct(prod_num);
+	}
+
 	
 
 }

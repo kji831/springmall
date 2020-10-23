@@ -88,15 +88,18 @@ public class PageMaker {
 	}
 	
 	// 페이지 정보와 검색조건을 이용한 쿼리스트링 생성 후 반환
-//	public String makeSearch(int page) {
-//		
-//		UriComponents uriComponents = 
-//				UriComponentsBuilder.newInstance()
-//				.queryParam("page", page)
-//				.queryParam("pagePerNum", cri.getPerPageNum())
-//				.queryParam("searchType", ((SearchCriteria)cri).getSearchType())
-//				.build();
-//	}
+	public String makeSearch(int page) {
+		
+		UriComponents uriComponents = 
+				UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("searchType", ((SearchCriteria)cri).getSearchType())
+				.queryParam("keword", ((SearchCriteria)cri).getKeyword())
+				.build();
+		
+		return uriComponents.toUriString();
+	}
 	
 	public String toString() {
 		return "PageMaker [totalCount=" + totalCount + ", startPage=" + startPage +

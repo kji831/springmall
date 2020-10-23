@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -62,7 +63,6 @@ public class AdminProductController {
 	@ResponseBody
 	@RequestMapping(value = "displayFile", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
-		
 		return FileUtils.getFile(uploadPath, fileName);
 	}
 	
@@ -85,6 +85,9 @@ public class AdminProductController {
 	public String productInsert(ProductVO vo) throws Exception {
 
 		
+		logger.info(vo.toString());
+		
+		
 		vo.setProd_img(FileUtils.uploadFile(uploadPath, vo.getFile1().getOriginalFilename(), vo.getFile1().getBytes()));
 		
 		service.insertProduct(vo);
@@ -95,6 +98,8 @@ public class AdminProductController {
 	// 상품리스트
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public void productList(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+		
+		logger.info(cri.toString());
 		
 		model.addAttribute("productList", service.searchList(cri));
 		
@@ -153,6 +158,23 @@ public class AdminProductController {
 				try {printWriter.close();}catch(Exception e) {e.printStackTrace();}
 			}
 		}
+		
+	}
+	
+	// 상품 상세정보 페이지
+	@RequestMapping(value = "read", method = RequestMethod.GET)
+	public void productRead(@ModelAttribute("cri") SearchCriteria cri, @RequestParam("prod_num") int prod_num, Model model) throws Exception {
+		
+		ProductVO vo = service.readProduct(prod_num);
+		
+		vo.setProd_img(vo.getProd_img().substring(vo.getProd_img().lastIndexOf("_")+1));
+		
+		model.addAttribute("vo", vo);
+		
+		PageMaker pm = new PageMaker();
+		pm.setCri(cri);
+		
+		model.addAttribute("pm", pm);
 		
 	}
 	

@@ -22,4 +22,7 @@ public interface AdminProductService {
 	
 	// 검색 조건에 해당하는 상품 개수
 	public int searchListCount(SearchCriteria cri) throws Exception;
+	
+	// 상품 정보
+	public ProductVO readProduct(int prod_num) throws Exception;
 }

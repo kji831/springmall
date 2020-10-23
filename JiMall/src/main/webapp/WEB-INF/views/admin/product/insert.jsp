@@ -70,7 +70,7 @@
 		var options = template(subCateStr); // 템플릿에 2차 카테고리데이터가 바인딩 된 소스
 
 		// 기존 option 제거 (누적방지)
-		$("$#subCategory option").remove();
+		$("#subCategory option").remove();
 		target.append(options);
 		
 	  }
@@ -119,13 +119,12 @@
 										<label for="exampleInputEmail1" style="width:30%;" >2차 카테고리</label> <br />
 										<select class="form-control" id="mainCategory" name="cate_pracode" style="width:30%; margin-right:10px; display: inline-block;" >
 										  <option value="default">1차 카테고리</option>
-										  <option>캬하하하하</option>
 										  <c:forEach items="${cateList}" var="vo">
 										  	<option value="${vo.cate_thcode}">${vo.cate_name}</option>
 										  </c:forEach>
 										</select>
 										<select class="form-control" id="subCategory" name="cate_thcode" style="width: 30%; display: inline-block;">
-										 	<option value="default">2차 카테고리 선택</option>
+										 	<option>2차 카테고리 선택</option>
 										</select>
 									</div>
 									<div class="form-group">
@@ -156,7 +155,7 @@
 
 									<div class="form-group">
 										<label for="exampleInputEmail1">상품 이미지</label> <input
-											type="file" id="file1" name="file1" class="form-control" />
+											type="file" id="prod_img" name="file1" class="form-control" />
 									</div>
 									
 									<div class="form-group">
@@ -165,7 +164,7 @@
 										<input style="width:30%; margin-right:10px; display: inline-block;"
 											type="text" id="prod_cominven" name='prod_cominven' class="form-control" 
 											placeholder="Enter Amount" />
-										<select class="form-control" id="prod_buypst" name="prod_buypst" style="width: 15%; display: inline-block;">
+										<select class="form-control" id="prod_buypos" name="prod_buypos" style="width: 15%; display: inline-block;">
 										  <option>Y</option>
 										  <option>N</option>
 										</select>

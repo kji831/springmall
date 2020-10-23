@@ -49,6 +49,12 @@ public class AdminProductDAOImpl implements AdminProductDAO {
 		return session.selectOne(NS + ".searchListCount", cri);
 	}
 
+	// 상품 정보
+	@Override
+	public ProductVO readProduct(int prod_num) throws Exception {
+		return session.selectOne(NS +".readProduct", prod_num);
+	}
+
 	
 
 	

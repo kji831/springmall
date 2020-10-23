@@ -20,12 +20,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 상품등록 -->
-	<insert id="insertProduct" parameterType="ProductVO">
+	<select id="insertProduct" parameterType="ProductVO">
 		insert into productinfo_tbl(prod_num, cate_thcode, cate_pracode, prod_name, prod_price, prod_discount, prod_develop, prod_detailint, 
 									prod_img, prod_cominven, prod_buypos, prod_regisdate)
-		values(seq_pdt_num.nextval, #{cate_thcode}, #{cate_pracode}, #{prod_name}, #{prod_price}, #{prod_discount}, #{prod_develop}, #{prod_detailint},
+		values(seq_prod_num.NEXTVAL, #{cate_thcode}, #{cate_pracode}, #{prod_name}, #{prod_price}, #{prod_discount}, #{prod_develop}, #{prod_detailint},
 		 							#{prod_img}, #{prod_cominven}, #{prod_buypos}, sysdate)	
-	</insert>
+	</select>
+	
 	
 	<!-- 검색 조건 : 공통 사용 구문 -->
 	<sql id="search">
@@ -69,21 +70,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	         조건 식이 실행이 됨 
 	         그냥 from product_tbl과 p_seq가 동일 선상에서 사용할 수 없기 때문에 
 	         사용하는 구문임  -->
+	        
 	<select id="searchList"  resultType="ProductVO">
 		select prod_num, cate_thcode, prod_name, prod_price, prod_discount, prod_develop, prod_detailint,
-		       prod_img, prod_cominven, prod_buypos, prod_registDate, prod_updateDate
-		from (select prod_num, cate_thcode, prod_name, prod_price, prod_discount, prod_develop, prod_detailint
-		      pdt_img, prod_cominven, prod_buypos, prod_registDate, prod_updateDate,
-		      row_number() over (order by prod_num desc) p_seq from product_tbl
+		       prod_img, prod_cominven, prod_buypos, prod_regisDate, prod_updateDate
+		from (select prod_num, cate_thcode, prod_name, prod_price, prod_discount, prod_develop, prod_detailint,
+		      prod_img, prod_cominven, prod_buypos, prod_regisDate, prod_updateDate,
+		      row_number() over (order by prod_num desc) p_seq from productinfo_tbl
 		      <include refid="search" /> )
-		where p_seq from product_tbl            
+		where p_seq between #{rowStart} and #{rowEnd}            
 	</select>
 	
 	<select id="searchListCount" resultType="int">
 		<![CDATA[
 			select count(prod_num)
-			form product_tbl
-			]]>
-			<include refid="search" />
+			from productinfo_tbl
+		]]>
+		<include refid="search" />
 	</select>
+	
+	<!-- 상품 정보 읽기 -->
+	<select id="readProduct" resultType="ProductVO">
+		select p.prod_num, p.cate_thcode, c.cate_pracode, p.prod_name, p.prod_price, p.prod_discount,
+		       p.prod_develop, p.prod_detailint, p.prod_img, p.prod_cominven, p.prod_buypos, p.prod_regisDate, p.prod_updateDate
+		from productinfo_tbl p inner join category_tbl c
+		on p.cate_thcode = c.cate_thcode
+		where p.prod_num = #{prod_num}
+	</select>
+	
 </mapper>

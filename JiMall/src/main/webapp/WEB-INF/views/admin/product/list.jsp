@@ -21,8 +21,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
   
-
-  <script src="/js/admin/insert.js"></script>
 	
   <!-- Custom styles for this template -->
   <%@ include file="/WEB-INF/views/common/bootcss.jsp" %> 	
@@ -37,7 +35,9 @@
   <!-- Page Content -->
   <div class="container">
 
+	<!-- row -->
     <div class="row">
+
 		<!-- 카테고리 메뉴 -->
       <div class="col-lg-3">
 
@@ -85,42 +85,55 @@
 							<button class="btn btn-primary"
 								onClick="location.href='/admin/product/insert'">상품 등록</button>
 							</div>	
-						</div>
-    		<!-- 
-    		<div class="login-form">
-			    <form action="/examples/actions/confirmation.php" method="post">
-			        <h2 class="text-center">Log in</h2>       
-			        <div class="form-group">
-			            <input type="text" class="form-control" placeholder="Username" required="required">
-			        </div>
-			        <div class="form-group">
-			            <input type="password" class="form-control" placeholder="Password" required="required">
-			        </div>
-			        <div class="form-group">
-			            <button type="submit" class="btn btn-primary btn-block">Log in</button>
-			        </div>
-			        <div class="clearfix">
-			            <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
-			            <a href="#" class="float-right">Forgot Password?</a>
-			        </div>        
-			    </form>
-			    <p class="text-center"><a href="#">Create an Account</a></p>
-</div>
-    
-   		   </div>
-          -->
+						</div>	
+							<br>
+			<div class="box" style="border: none;">
+				<div class="box-body">
+					<table class="table table-striped text-center">
+						<tr>
+							<th><input type="checkbox" id="checkAll" /></th>
+							<th>상품 번호</th>
+							<th>상품 이미지</th>
+							<th>상품명</th>
+							<th>판매 가격</th>
+							<th>할인율</th>
+							<th>제조사</th>
+							<th>남은 수량</th>
+							<th>판매 여부</th>
+							<th>수정/삭제</th>
+						</tr>
+
+						<%-- 상품 리스트 출력하기 --%>
+						<c:forEach items="${productList}" var="productVO">
+							<tr>
+								<td><input type="checkbox" name="check" class="check" value="${productVO.prod_num}" /></td>
+								<td class="col-md-1">${productVO.prod_num}</td>
+								<td class="col-md-2">
+									<img src="/admin/product/displayFile?fileName=${productVO.prod_img}" />
+
+									<img type="hidden" name="img_${productVO.prod_num}" value="${productVO.prod_img}" />
+
+								</td>
+								
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+
+			</div>				
+		</div>
+		</div>
+		</div>					
 		<!-- 로그인 -->
         </div>
         <!-- /.row -->
-
-      </div>
+	  </div>
+	  
       <!-- /.col-lg-9 -->
-
     </div>
-    <!-- /.row -->
-
-  </div>
+  
   <!-- /.container -->
+  </div>
 
   <!-- Footer -->
   <%@ include file="/WEB-INF/views/common/bottom.jsp" %>
