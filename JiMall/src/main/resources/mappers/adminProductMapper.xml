@@ -98,4 +98,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where p.prod_num = #{prod_num}
 	</select>
 	
+	<!-- 상품 수정 -->
+	<select id="editProduct" resultType="ProductVO">
+		update productinfo_tbl
+		set cate_thcode=#{cate_thcode}, prod_name=#{prod_name}, prod_price=#{prod_price}, prod_discount=#{prod_discount},
+			prod_develop=#{prod_develop}, prod_detailint=#{prod_detailint}, prod_img=#{prod_img}, prod_cominven=#{prod_cominven},
+			prod_buypos=#{prod_buypos}, prod_updatedate=sysdate
+		where prod_num=#{prod_num}	
+	</select>
+	
+	<!-- 선택 상품 수정 -->
+	<update id="editChecked">
+		update prodinfo_tbl
+		set	prod_cominven=#{prod_cominven}, prod_buypos=#{prod_buypos}, prod_updatedate=sysdate
+		where prod_num=#{prod_num}
+	</update>
+	
+	<!-- 상품 삭제 -->
+	<delete id="deleteProduct">
+		delete productinfo_tbl
+		where prod_num = #{prod_num}
+	</delete>
+	
 </mapper>

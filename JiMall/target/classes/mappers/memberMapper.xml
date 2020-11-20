@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- MemberVO 가져오기 -->
 	<select id="readMemInfo" parameterType="string" resultType="MemberVO">
-		select spmem_id, spmem_name, spmem_pw, spmem_postcode, spmem_add, spmem_deAdd, spmem_phonNum, spmem_nick, spmem_email
+		select spmem_id, spmem_name, spmem_pw, spmem_postcode, spmem_add, spmem_deAdd, spmem_phonNum, spmem_nick, spmem_email,
 			   spmem_point, spmem_joindate, spmem_updatedate, spmem_lastlogin
 		from shopingmember_tbl
 		where spmem_id = #{spmem_id}	   

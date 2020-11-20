@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jimall.mappers.ReviewMapper">
+
+	<!-- 상품후기 총 개수 -->
+	<select id="countReview" resultType="int">
+		select count(rev_num)
+		from review_tbl
+		where prod_num=#{prod_num}
+	</select>
+	
+	<!-- 상품후기 쓰기 -->
+	<insert id="writeReview">
+		insert into review_tbl(rev_num, spmem_id, prod_num, rev_content, rev_score, rev_regdate)
+		values (seq_rev_num.nextval, #{spmem_id}, #{prod_num}, #{rev_content}, #{rev_score}, sysdate)
+	</insert>
+	
+	<!-- 상품후기 리스트 -->
+	<select id="listReview" resultType="ReviewVO">
+		select rev_num, spmem_id, prod_num, rev_content, rev_score, rev_regdate
+		from (select rev_num, spmem_id, prod_num, rev_content, rev_score, rev_regdate,
+			 		row_number() over(order by rev_num desc) p_seq
+			 from   review_tbl where  prod_num=#{prod_num})
+			 where  p_seq between #{cri.rowStart} and #{cri.rowEnd}
+	</select>
+	
+	<!-- 상품후기 삭제 -->
+	<delete id="deleteReview">
+		delete from review_tbl
+		where rev_num=#{rev_num}
+	</delete>
+	
+	<!-- 상품후기 수정 -->
+	<update id="modifyReview">
+		update review_tbl
+		set rev_content=#{rev_content}, rev_score=#{rev_score}
+		where rev_num=#{rev_num}
+	</update> 
+</mapper>
+
+	

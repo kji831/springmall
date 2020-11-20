@@ -1,6 +1,7 @@
 package com.jimall.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,27 @@ public class AdminProductServiceImpl implements AdminProductService {
 	@Override
 	public ProductVO readProduct(int prod_num) throws Exception {
 		return dao.readProduct(prod_num);
+	}
+
+	// 상품 수정
+	@Override
+	public void editProduct(ProductVO vo) throws Exception {
+		dao.editProduct(vo);
+		
+	}
+
+	// 선택 상품 수정
+	@Override
+	public void editChecked(Map<String, Object> map) throws Exception {
+		dao.editChecked(map);
+		
+	}
+
+	// 상품 삭제
+	@Override
+	public void deleteProduct(int prod_num) throws Exception {
+		dao.deleteProduct(prod_num);
+		
 	}
 
 	

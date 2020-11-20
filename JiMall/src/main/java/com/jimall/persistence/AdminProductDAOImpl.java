@@ -1,6 +1,7 @@
 package com.jimall.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,26 @@ public class AdminProductDAOImpl implements AdminProductDAO {
 	@Override
 	public ProductVO readProduct(int prod_num) throws Exception {
 		return session.selectOne(NS +".readProduct", prod_num);
+	}
+
+	// 상품 수정
+	@Override
+	public void editProduct(ProductVO vo) throws Exception {
+		session.update(NS +".editProduct", vo);
+		
+	}
+	
+	// 선택 상품 수정
+	@Override
+	public void editChecked(Map<String, Object> map) throws Exception {
+		session.update(NS +".editChecket", map);
+		
+	}
+
+	// 상품 삭제
+	@Override
+	public void deleteProduct(int prod_num) throws Exception {
+		session.delete(NS +".deleteProduct", prod_num); 
 	}
 
 	

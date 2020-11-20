@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jimall.mappers.OrderMapper">
+
+	<!-- 주문코드 시퀀스 가져오기 -->
+	<select id="readOrderNum" resultType="int">
+		select seq_ord_num.NEXTVAL from dual
+	</select>
+	
+	<!-- 주문내역 추가 -->
+	<insert id="addOrderDetail">
+		insert into ordetail_tbl(ord_num, prod_num, ode_puamount, ode_price)
+		values(#{ord_num}, #{prod_num}, #{ode_puamount}, #{ode_price})
+	</insert>
+	
+	<!-- 주문 정보 추가 -->
+	<insert id="addOrder">
+		insert into order_tbl(ord_num, spmem_id, ord_name, ord_postcord, ord_basadd, ord_deadd, ord_tel, ord_price, ord_orddate)
+		values(#{ord_num}, #{spmem_id}, #{ord_name}, #{ord_postcord}, #{ord_basadd}, #{ord_deadd}, #{ord_tel}, #{ord_price}, sysdate)
+	</insert>
+	
+	<!-- 주문 목록 -->
+	<select id="orderList">
+		select p.prod_img, p.prod_name, d.ord_num, d.prod_num, d.ode_puamount, d.ord_price, o.ord_orddate
+		from ordetail_tbl d
+		inner join order_tbl o
+			on d.ord_num = o.ord_num
+		inner join productinfo_tbl p 
+			on d.prod_num = p.prod_num
+		where o.spmem_id = #{spmem_id}
+		order by d.ord_num desc, d.prod_num desc
+	</select>
+	
+	<!-- 주문 상세정보 -->
+	<select id="readOrder">
+		select d.ode_puamount, d.prod_Num, d.ord_price, p.prod_name, p.prod_img, p.prod_price
+		from ordetail_tbl d
+		inner join product_tbl p 
+			on. d.prod_num = p.prod_num
+		where d.ord_num = #{ord_num}
+	</select>
+	
+	<!-- 주문자 정보 -->
+	<select id="getOrder">
+		select ord_num, spmem_id, ord_name, ord_postcode, ord_basadd, ord_deadd, ord_tel, ord_price, ord_orddate
+		from order_tbl
+		where ord_num = #{ord_num}
+	</select>
+</mapper>
+
+	

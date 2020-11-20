@@ -1,14 +1,19 @@
 package com.jimall.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -176,6 +181,81 @@ public class AdminProductController {
 		
 		model.addAttribute("pm", pm);
 		
+	}
+	
+	// 상품 수정 
+	@RequestMapping(value = "edit", method=RequestMethod.GET)
+	public void productEditGET(@ModelAttribute("cri") SearchCriteria cri, @RequestParam("prod_num") int prod_num, Model model) throws Exception{
+		
+		// 선택한 상품의 날짜 변환
+		ProductVO vo = service.readProduct(prod_num);
+		
+		List<CategoryVO> subCateList = service.subCateList(vo.getCate_pracode());
+		String originFile = vo.getProd_img().substring(vo.getProd_img().lastIndexOf("_") + 1);
+		
+		model.addAttribute("vo", vo);
+		model.addAttribute("originFile", originFile);
+		model.addAttribute("cateList", service.mainCateList());
+		model.addAttribute("subCateList", service.subCateList(vo.getCate_pracode()));
+		
+		PageMaker pm = new PageMaker();
+		pm.setCri(cri);
+		
+		model.addAttribute("pm", pm);
+	}
+	
+	// 상품수정
+	@RequestMapping(value = "edit", method=RequestMethod.POST)
+	public String productEditPOST(ProductVO vo, SearchCriteria cri) throws Exception {
+		
+		// 파일 사이즈로 새로운 파일 등록 여부 확인하기
+		// 파일을 새로 등록하지 않으면 비어있는 쓰레기 파일이 넘어옴
+		if(vo.getFile1().getSize() > 0) {
+			
+			vo.setProd_img(FileUtils.uploadFile(uploadPath, vo.getFile1().getOriginalFilename(), vo.getFile1().getBytes()));
+		}
+		
+		service.editProduct(vo);
+		
+		return "redirect:/admin/product/list";
+	}
+	
+	// 선택 상품 수정
+	@ResponseBody
+	@RequestMapping(value = "editChecked", method = RequestMethod.POST)
+	public ResponseEntity<String> editChecked(@RequestParam("checkArr[]") List<Integer> checkArr, @RequestParam("cominvenArr[]") List<Integer> cominvenArr,
+											  @RequestParam("buyposArr[]") List<String> buyposArr) {
+		
+		ResponseEntity<String> entity = null;
+		try {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			for(int i=0; i<checkArr.size(); i++) {
+				map.put("prod_num", checkArr.get(i));
+				map.put("prod_cominven", cominvenArr.get(i));
+				map.put("prod_buypos", buyposArr.get(i));
+				
+				service.editChecked(map);
+			}
+			entity = new ResponseEntity<String>(HttpStatus.OK);
+			
+		}catch(Exception e) {
+			entity = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+		entity = new ResponseEntity<String>(HttpStatus.OK);
+		return entity;
+	}
+	
+	// 상품 삭제
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public String productDelete(SearchCriteria cri, @RequestParam("prod_num") int prod_num,
+			                    @RequestParam("prod_img") String prod_img, HttpSession session) throws Exception {
+		
+		deleteFile(prod_img);
+		
+		service.deleteProduct(prod_num);
+		
+		return "redirect:/admin/product/list";
 	}
 	
 	

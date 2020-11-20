@@ -1,6 +1,7 @@
 package com.jimall.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import com.jimall.domain.CategoryVO;
 import com.jimall.domain.ProductVO;
@@ -25,4 +26,13 @@ public interface AdminProductDAO {
 	
 	// 상품 정보 읽기
 	public ProductVO readProduct(int prod_num) throws Exception;
+	
+	// 상품 수정
+	public void editProduct(ProductVO vo) throws Exception;
+	
+	// 선택 상품 수정
+	public void editChecked(Map<String, Object> map) throws Exception;
+	
+	// 상품 삭제
+	public void deleteProduct(int prod_num) throws Exception;
 }

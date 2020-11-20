@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.1.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -24,10 +26,13 @@
 	<resources mapping="/vendor/**" location="/WEB-INF/views/vendor/" />
 	
 	<resources mapping="/js/**" location="/WEB-INF/views/js/" />
+	
+	<resources mapping="/chart/**" location="/resources/chart/" />
 
 	<resources mapping="/ckeditor/**" location="/resources/bower_components/ckeditor/" />
 	<resources mapping="/upload/**" location="/resources/upload/" />
 	
+	<resources mapping="/chart/**" location="/WEB-INF/views/chart/" />
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -35,6 +40,8 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	
+	<beans:bean id="loginInterceptor" class="com.jimall.interceptor.LoginInterceptor"></beans:bean>
 	
 	<!-- 클라이언트로 부터 전송되어 온 파일을 스프링에서 처리하는 기능 -->
 	<!-- MultipartFile file 주입됨 -->
@@ -48,8 +55,15 @@
 		<beans:constructor-arg value="D:\\dev\\upload"></beans:constructor-arg>
 	</beans:bean>
 	
+	<!-- 로그인 확인 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/**" />
+			<exclude-mapping path="/" />
+			<exclude-mapping path="/member/login" />
+			<beans:ref bean="loginInterceptor" />		
+		</interceptor>
+	</interceptors>
 	<context:component-scan base-package="com.jimall.controller" />
-	
-	
 	
 </beans:beans>

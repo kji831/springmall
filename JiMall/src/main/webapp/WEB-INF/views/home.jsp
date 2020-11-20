@@ -17,11 +17,6 @@
   <!-- Custom styles for this template -->
 <%@ include file="/WEB-INF/views/common/bootcss.jsp" %>
   
-  <script type="text/javascript">
-  	$(function(){
-  		
-  	});
-  </script>
 
 </head>
 

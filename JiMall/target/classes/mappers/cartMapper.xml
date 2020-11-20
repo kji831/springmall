@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jimall.mappers.CartMapper">
+
+	<select id="getCart" resultType="CartProductVO">
+		<![CDATA[
+			select c.cart_code, c.cart_puamount, p.prod_num, p.prod_name, p.prod_price, p.prod_discount, p.prod_img 
+			from cart_tbl c inner join productinfo_tbl p
+			on c.prod_num = p.prod_num
+			where spmem_id = #{spmem_id}
+		]]>
+	</select>
+
+	<insert id="addCart">
+		merge into cart_tbl c
+		using dual
+		on (c.spmem_id=#{spmem_id} and c.prod_num=#{prod_num})
+		when matched then
+			update set cart_puAmount = cart_puAmount + #{cart_puAmount}
+		when not matched then
+			insert (cart_code, prod_num, spmem_id, cart_puAmount)
+			values (seq_cart_code.NEXTVAL, #{prod_num}, #{spmem_id}, #{cart_puAmount})
+	</insert>
+	
+	<!-- 장바구니 삭제 -->
+	<delete id="deleteCart">
+		delete from cart_tbl
+		where cart_code = #{cart_code}
+	</delete>
+	
+	<!-- 장바구니 수량 변경 -->
+	<update id="updateCart">
+		update cart_tbl
+		set cart_puamount=#{cart_puamount}
+		where cart_code=#{cart_code}
+	</update>
+	
+</mapper>
+
+	

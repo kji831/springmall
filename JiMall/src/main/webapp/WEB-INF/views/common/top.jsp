@@ -22,7 +22,7 @@
             <a class="nav-link" href="/">로그아웃</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="/cart/list">장바구니</a>
           </li>
         </ul>
       </div>

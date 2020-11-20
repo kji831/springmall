@@ -43,7 +43,7 @@ public class Criteria {
 	
 	public int getPageStart() {
 		
-		return (this.page - 1) * perPageNum;
+		return this.page * perPageNum;
 	}
 	
 	public int getPerPageNum() {
